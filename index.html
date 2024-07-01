@@ -87,18 +87,45 @@
             height: 100%;
             overflow: hidden;
         }
-        @media (max-width: 420px) {
-            #book {
-                width: 350px;
-                height: 495px;
-            }
-        }
-        @media (max-width: 1500px) and (min-width: 421px) {
-            #book {
-                width: 565px;
-                height: 800px;
-            }
-        }
+       /* iPhone 15 Pro Max (430 x 932) */
+@media (max-width: 430px) {
+    #book {
+        width: 394px;  /* Increased from 303px by ~30% */
+        height: 558px; /* Increased from 429px by ~30% */
+    }
+}
+
+/* iPhone 11 (414 x 896) */
+@media (max-width: 414px) {
+    #book {
+        width: 380px;  /* Increased from 292px by ~30% */
+        height: 538px; /* Increased from 414px by ~30% */
+    }
+}
+
+/* iPhone 15 Pro (393 x 852) */
+@media (max-width: 393px) {
+    #book {
+        width: 360px;  /* Increased from 277px by ~30% */
+        height: 510px; /* Increased from 392px by ~30% */
+    }
+}
+
+/* iPhone 12 (390 x 844) */
+@media (max-width: 390px) {
+    #book {
+        width: 358px;  /* Increased from 275px by ~30% */
+        height: 506px; /* Increased from 389px by ~30% */
+    }
+}
+
+/* iPhone mini (360 x 780) */
+@media (max-width: 360px) {
+    #book {
+        width: 330px;  /* Increased from 254px by ~30% */
+        height: 468px; /* Increased from 360px by ~30% */
+    }
+}
     </style>
     <link rel="preload" as="script" href="https://unpkg.com/page-flip/dist/js/page-flip.browser.js">
 </head>
@@ -145,15 +172,33 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const bookElement = document.getElementById('book');
-            let pageFlipWidth = 708;
-            let pageFlipHeight = 1000;
-            if (window.matchMedia('(max-width: 420px)').matches) {
-                pageFlipWidth = 350;
-                pageFlipHeight = 495;
-            } else if (window.matchMedia('(max-width: 1500px) and (min-width: 421px)').matches) {
-                pageFlipWidth = 565;
-                pageFlipHeight = 800;
+            let pageFlipWidth, pageFlipHeight;
+    
+            function updateDimensions() {
+                const width = window.innerWidth;
+                if (width > 430) {
+                    pageFlipWidth = 708;
+                    pageFlipHeight = 1000;
+                } else if (width > 414) {
+                    pageFlipWidth = 394;
+                    pageFlipHeight = 558;
+                } else if (width > 393) {
+                    pageFlipWidth = 380;
+                    pageFlipHeight = 538;
+                } else if (width > 390) {
+                    pageFlipWidth = 360;
+                    pageFlipHeight = 510;
+                } else if (width > 360) {
+                    pageFlipWidth = 358;
+                    pageFlipHeight = 506;
+                } else {
+                    pageFlipWidth = 330;
+                    pageFlipHeight = 468;
+                }
             }
+    
+            updateDimensions();
+    
             const pageFlip = new St.PageFlip(bookElement, {
                 width: pageFlipWidth,
                 height: pageFlipHeight,
@@ -167,7 +212,13 @@
                 showCover: true,
                 mobileScrollSupport: true
             });
+    
             pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+    
+            window.addEventListener('resize', function() {
+                updateDimensions();
+                pageFlip.updateFromDimensions(pageFlipWidth, pageFlipHeight);
+            });
         });
     </script>
 </body>
