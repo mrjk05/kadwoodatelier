@@ -61,8 +61,6 @@
             font-family: Arial, sans-serif;
         }
         #book {
-            width: 708px;
-            height: 1000px;
             position: relative;
             max-width: 100%;
         }
@@ -97,103 +95,87 @@
             height: 80%;
             overflow: hidden;
         }
-
         .overlay-div p {
             margin-top: 40px;
             text-align: center;
             width: 100%;
-            color: #0D0D0D; /* Adjust the color as needed */
+            color: #0D0D0D;
             font-family: 'Kadwood Regular', Arial, sans-serif;
-            font-size: 10px; /* Adjust the font size as needed */
+            font-size: 10px;
         }
         a, a:visited, a:hover, a:active {
             color: #42141E;
             text-decoration: none;
         }
-       /* iPhone 15 Pro Max (430 x 932) */
-@media (min-width: 431px) {
-    .overlay-div p {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 430px) {
-    #book {
-        width: 394px;  /* Increased from 303px by ~30% */
-        height: 558px; /* Increased from 429px by ~30% */
-    }
-}
-
-/* iPhone 11 (414 x 896) */
-@media (max-width: 414px) {
-    #book {
-        width: 380px;  /* Increased from 292px by ~30% */
-        height: 538px; /* Increased from 414px by ~30% */
-    }
-}
-
-/* iPhone 15 Pro (393 x 852) */
-@media (max-width: 393px) {
-    #book {
-        width: 360px;  /* Increased from 277px by ~30% */
-        height: 510px; /* Increased from 392px by ~30% */
-    }
-}
-
-/* iPhone 12 (390 x 844) */
-@media (max-width: 390px) {
-    #book {
-        width: 358px;  /* Increased from 275px by ~30% */
-        height: 506px; /* Increased from 389px by ~30% */
-    }
-}
-
-/* iPhone mini (360 x 780) */
-@media (max-width: 360px) {
-    #book {
-        width: 330px;  /* Increased from 254px by ~30% */
-        height: 468px; /* Increased from 360px by ~30% */
-    }
-}
+        @media (min-width: 431px) {
+            .overlay-div p {
+                font-size: 16px;
+            }
+        }
+        .arrow-container {
+            position: absolute;
+            right: 20px; /* Changed from left to right */
+            top: 95%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
     </style>
     <link rel="preload" as="script" href="https://unpkg.com/page-flip/dist/js/page-flip.browser.js">
 </head>
 <body>
     <main id="book">
         <div class="page">
-            <img src="imgs/COVER.webp" alt="Kadwood Atelier - Luxury Women's Suits" loading="eager">
+            <img src="imgs/COVER.webp" alt="Kadwood Atelier's emblem, a promise etched in burgundy velvet, where geometric whispers unfold a world of sartorial dreams" loading="eager">
+            <div class="arrow-container">
+                <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+                <dotlottie-player src="https://lottie.host/6ef52630-60fa-4ebb-b9fd-84ea276b879a/hBzDf3MPm6.json" background="transparent" speed="1" style="width: 50px; height: 50px;" loop autoplay></dotlottie-player>
+            </div>
         </div>
         <div class="page">
-            <img src="imgs/BACKCOVER.webp" alt="Kadwood Atelier Back Cover" loading="lazy">
+            <img src="imgs/PAGE1.webp" alt="An 'O' of opportunity, a blush-toned portal to the House of Dreams, where ambitions are tailored and futures sewn" loading="lazy">
         </div>
         <div class="page">
-            <img src="imgs/PAGE3.webp" alt="Kadwood Atelier Collection" loading="lazy">
+            <img src="imgs/PAGE2.webp" alt="A symphony of confidence, draped in Kadwood's finest, her smile a testament to the power of perfect fit" loading="lazy">
         </div>
         <div class="page">
-            <img src="imgs/PAGE9.webp" alt="Kadwood Atelier Designs" loading="lazy">
+            <img src="imgs/PAGE5.webp" alt="Hands sculpting destiny, adjusting lapels with the precision of an artist, each touch a brushstroke of empowerment" loading="lazy">
         </div>
         <div class="page">
-            <img src="imgs/PAGE5.webp" alt="Kadwood Atelier Tailoring" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE4.webp" alt="Kadwood Atelier Fabric Selection" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE6.webp" alt="Kadwood Atelier Fitting Process" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE7.webp" alt="Kadwood Atelier Client Stories" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE8.webp" alt="Kadwood Atelier Empowerment" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE11.webp" alt="Kadwood Atelier Sustainability" loading="lazy">
-        </div>
-        <div class="page">
-            <img src="imgs/PAGE12.webp" alt="Request an appointment with Kadwood" loading="lazy">
+            <img src="imgs/APPOINTMENT.webp" alt="A canvas of possibility, where 'Request an Appointment' becomes an invitation to reinvent oneself in Kadwood's embrace" loading="lazy">
             <div class="overlay-div">
-                <iframe title="Kadwood Newsletter Signup" width="540" height="100%" src="https://b3453764.sibforms.com/serve/MUIFAEvWZb8wCHsqfsKowsy-S15o8yjWA3wG-dITIziMTJiaYeBOkAWJl4EXC2qGEk7xT6PsrSQ2X8nnqgB38yde4lCDxVnpe7Qn1XKVOa5g3R2u7S3mBJ4JcDBQvm-vrqntjoO3MJO-9P0igg1cQgSqLSj1ETheRX1azssc3Lvo01CcSuteSRSC_t8EuneLCPvIwtavPcJiNFhY" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%; margin-top: 0; margin-bottom: 0;"></iframe>
+                <iframe title="Kadwood Newsletter Signup" width="540" height="100%" src="https://b3453764.sibforms.com/serve/MUIFACSoC5_ANra9bS1rSCAJRCiJVTUpz6m7j-TKjCuknET_5cShnFCtIvy4UNQa7tNhfn4T2POEZw0RdMREfebJ8jQsuhxJK4ehwzxCinrJZNnroko5wvnWRtQtdFmsXssk_OQUVkLCNTGxKKOOFyB6-48Y3mvcs28dRgA9OvTDIaI99NbYwQ3NBOovmnelcgNgb1Bd-vw4PDkO" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%; margin-top: 0; margin-bottom: 0;"></iframe>
+                <p>CONNECT ON INSTAGRAM <a href="https://instagram.com/erin.kadwood">@ERIN.KADWOOD</a></p>
+            </div>
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE3.webp" alt="Framed by possibility, she stands tall in Kadwood's creation, the doorway a threshold to a world conquered" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE6.webp" alt="'Timeless Beauty' incarnate, a silhouette that defies eras, Kadwood's ode to the eternal feminine" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE7.webp" alt="Draped in white Kadwood wisdom, she embodies the 'Ultimate Expression of Self', a blank page ready for her story" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/APPOINTMENT.webp" alt="A canvas of possibility, where 'Request an Appointment' becomes an invitation to reinvent oneself in Kadwood's embrace" loading="lazy">
+            <div class="overlay-div">
+                <iframe title="Kadwood Newsletter Signup" width="540" height="100%" src="https://b3453764.sibforms.com/serve/MUIFACSoC5_ANra9bS1rSCAJRCiJVTUpz6m7j-TKjCuknET_5cShnFCtIvy4UNQa7tNhfn4T2POEZw0RdMREfebJ8jQsuhxJK4ehwzxCinrJZNnroko5wvnWRtQtdFmsXssk_OQUVkLCNTGxKKOOFyB6-48Y3mvcs28dRgA9OvTDIaI99NbYwQ3NBOovmnelcgNgb1Bd-vw4PDkO" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%; margin-top: 0; margin-bottom: 0;"></iframe>
+                <p>CONNECT ON INSTAGRAM <a href="https://instagram.com/erin.kadwood">@ERIN.KADWOOD</a></p>
+            </div>
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE9.webp" alt="Fingertips dance across Kadwood's fabric, feeling the whisper of quality, the tactile promise of transformation" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE10.webp" alt="In Kadwood's armor, she stands resolute, her wardrobe a silent declaration of influence and intent" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/PAGE11.webp" alt="The 'K' of Kadwood rises, a monolithic symbol of style, surrounded by the narrative of a brand that reshapes destinies" loading="lazy">
+        </div>
+        <div class="page">
+            <img src="imgs/APPOINTMENT.webp" alt="A canvas of possibility, where 'Request an Appointment' becomes an invitation to reinvent oneself in Kadwood's embrace" loading="lazy">
+            <div class="overlay-div">
+                <iframe title="Kadwood Newsletter Signup" width="540" height="100%" src="https://b3453764.sibforms.com/serve/MUIFACSoC5_ANra9bS1rSCAJRCiJVTUpz6m7j-TKjCuknET_5cShnFCtIvy4UNQa7tNhfn4T2POEZw0RdMREfebJ8jQsuhxJK4ehwzxCinrJZNnroko5wvnWRtQtdFmsXssk_OQUVkLCNTGxKKOOFyB6-48Y3mvcs28dRgA9OvTDIaI99NbYwQ3NBOovmnelcgNgb1Bd-vw4PDkO" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%; margin-top: 0; margin-bottom: 0;"></iframe>
                 <p>CONNECT ON INSTAGRAM <a href="https://instagram.com/erin.kadwood">@ERIN.KADWOOD</a></p>
             </div>
         </div>
@@ -202,12 +184,19 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const bookElement = document.getElementById('book');
-            let pageFlipWidth, pageFlipHeight;
             let pageFlip;
-    
+
             function updateDimensions() {
                 const width = window.innerWidth;
-                if (width > 430) {
+                const height = window.innerHeight;
+                let pageFlipWidth, pageFlipHeight;
+
+                if (width >= 1024 && height <= 900) {
+                    // MacBook Air and similar sizes
+                    pageFlipWidth = 582;
+                    pageFlipHeight = 822;
+                } else if (width > 430) {
+                    // Larger screens
                     pageFlipWidth = 708;
                     pageFlipHeight = 1000;
                 } else if (width > 414) {
@@ -226,13 +215,19 @@
                     pageFlipWidth = 330;
                     pageFlipHeight = 468;
                 }
+
+                // Apply dimensions directly to the book element
+                bookElement.style.width = `${pageFlipWidth}px`;
+                bookElement.style.height = `${pageFlipHeight}px`;
+
+                return { width: pageFlipWidth, height: pageFlipHeight };
             }
-    
-            updateDimensions();
-    
+
+            const dimensions = updateDimensions();
+
             pageFlip = new St.PageFlip(bookElement, {
-                width: pageFlipWidth,
-                height: pageFlipHeight,
+                width: dimensions.width,
+                height: dimensions.height,
                 size: 'fixed',
                 drawShadow: true,
                 flippingTime: 1500,
@@ -243,12 +238,12 @@
                 showCover: true,
                 mobileScrollSupport: true
             });
-    
+
             pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-    
+
             window.addEventListener('resize', function() {
-                updateDimensions();
-                pageFlip.updateFromDimensions(pageFlipWidth, pageFlipHeight);
+                const newDimensions = updateDimensions();
+                pageFlip.updateFromDimensions(newDimensions.width, newDimensions.height);
             });
 
             // Add keyboard event listener
@@ -259,6 +254,14 @@
                     pageFlip.flipPrev();
                 }
             });
+
+            // Add click event for the arrow
+            const arrow = document.querySelector('.arrow');
+            if (arrow) {
+                arrow.addEventListener('click', function() {
+                    pageFlip.flipNext();
+                });
+            }
         });
     </script>
 </body>
