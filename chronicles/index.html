@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadwood Atelier Blog - Luxury Women's Suits | House of Dreams</title>
+    <meta name="description" content="Explore the world of Kadwood Atelier through our blog. Discover insights on luxury tailoring, women's empowerment, and the art of bespoke fashion.">
+    <meta name="keywords" content="Kadwood, blog, women's tailoring, luxury fashion, Sydney, empowerment, Size YOU, women's tailored suits">
+    <meta name="author" content="Erin Kadwood">
+    <link rel="canonical" href="https://www.kadwood.com/blog">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.kadwood.com/blog">
+    <meta property="og:title" content="Kadwood Atelier Blog - Luxury Women's Suits">
+    <meta property="og:description" content="Explore the world of Kadwood Atelier through our blog. Discover insights on luxury tailoring, women's empowerment, and the art of bespoke fashion.">
+    <meta property="og:image" content="https://www.kadwood.com/imgs/PAGE5.webp">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.kadwood.com/blog">
+    <meta property="twitter:title" content="Kadwood Atelier Blog - Luxury Women's Suits">
+    <meta property="twitter:description" content="Explore the world of Kadwood Atelier through our blog. Discover insights on luxury tailoring, women's empowerment, and the art of bespoke fashion.">
+    <meta property="twitter:image" content="https://www.kadwood.com/imgs/PAGE5.webp">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    
+    <link href="https://fonts.cdnfonts.com/css/liberation-sans" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <style>
+        @font-face {
+            font-family: 'Kadwood Regular';
+            src: url('../KadwoodRegular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }       
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0D0D0D;
+            font-family: 'Liberation Sans', Arial, sans-serif;
+            color: #42141E;
+        }
+        #book {
+            position: relative;
+            max-width: 100%;
+        }
+        .page {
+            background-color: #E8C7C3;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .page img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .page.cover img, .page.image img {
+            height: 100%;
+        }
+        .content-container {
+            padding: 20px;
+            height: calc(100% - 40px); /* Adjust for footer */
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .content-container p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .content-container h1, .content-container h2, 
+        .content-container h3, .content-container h4, 
+        .content-container h5, .content-container h6 {
+            font-family: 'Kadwood Regular', 'Liberation Sans', Arial, sans-serif;
+            text-transform: uppercase;
+        }
+        .content-container h1 {
+            font-size: 40px;
+        }
+        .content-container h2 {
+            font-size: 20px;
+        }
+        a, a:visited, a:hover, a:active {
+            color: #42141E;
+            text-decoration: none;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-top: 2px solid #42141E;
+            font-family: 'Kadwood Regular', 'Liberation Sans', Arial, sans-serif;
+        }
+        .image-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background-color: rgba(232, 199, 195, 0.8);
+            border-top: 2px solid #42141E;
+            color: #42141E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            font-family: 'Liberation Sans', Arial, sans-serif;
+            font-size: 10px;
+        }
+    </style>
+    <link rel="preload" as="script" href="https://unpkg.com/page-flip/dist/js/page-flip.browser.js">
+</head>
+<body>
+    <main id="book">
+        <!-- Pages will be dynamically inserted here -->
+    </main>
+    <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookElement = document.getElementById('book');
+            let pageFlip;
+
+            function updateDimensions() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                let pageFlipWidth, pageFlipHeight;
+
+                pageFlipHeight = height;
+                pageFlipWidth = Math.floor(pageFlipHeight / 1.414);
+
+                if (pageFlipWidth > width) {
+                    pageFlipWidth = width;
+                    pageFlipHeight = Math.floor(pageFlipWidth * 1.414);
+                }
+
+                bookElement.style.width = pageFlipWidth + 'px';
+                bookElement.style.height = pageFlipHeight + 'px';
+
+                return { width: pageFlipWidth, height: pageFlipHeight };
+            }
+
+            function parseFrontMatter(markdown) {
+                const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
+                const match = markdown.match(frontMatterRegex);
+                if (match) {
+                    const frontMatter = {};
+                    match[1].split('\n').forEach(line => {
+                        const [key, ...value] = line.split(':');
+                        if (key && value) {
+                            frontMatter[key.trim()] = value.join(':').trim();
+                        }
+                    });
+                    const content = markdown.replace(frontMatterRegex, '');
+                    return { frontMatter, content };
+                }
+                return { frontMatter: {}, content: markdown };
+            }
+
+            // Load book content
+            fetch('book-content.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Create pages
+                    data.pages.forEach((page, index) => {
+                        const pageElement = document.createElement('div');
+                        pageElement.className = 'page';
+                        
+                        if (page.type === 'cover') {
+                            pageElement.classList.add('cover');
+                            pageElement.innerHTML = `
+                                <img src="${page.image}" alt="${page.alt}" loading="eager">
+                            `;
+                        } else if (page.type === 'image') {
+                            pageElement.classList.add('image');
+                            pageElement.innerHTML = `
+                                <img src="${page.image}" alt="${page.alt}" loading="lazy">
+                                <div class="image-footer">${page.credit || ''}</div>
+                            `;
+                        } else if (page.type === 'content') {
+                            // Load and render markdown content
+                            fetch(page.markdown)
+                                .then(response => response.text())
+                                .then(markdown => {
+                                    const { frontMatter, content } = parseFrontMatter(markdown);
+                                    const htmlContent = marked.parse(content);
+                                    pageElement.innerHTML = '<div class="content-container">' + htmlContent + '</div>';
+                                    
+                                    // Add footer only for content pages
+                                    const footer = document.createElement('div');
+                                    footer.className = 'footer';
+                                    footer.innerHTML = '<span><a href="https://kadwood.com">KADWOOD ATELIER</a></span><span>PAGE ' + (index + 1) + '</span>';
+                                    pageElement.appendChild(footer);
+                                    
+                                    if (frontMatter.title) {
+                                        const titleElement = document.createElement('h1');
+                                        titleElement.textContent = frontMatter.title;
+                                        pageElement.querySelector('.content-container').prepend(titleElement);
+                                    }
+                                });
+                        }
+                        
+                        bookElement.appendChild(pageElement);
+                    });
+
+                    // Initialize PageFlip
+                    initializePageFlip();
+                });
+
+            function initializePageFlip() {
+                const dimensions = updateDimensions();
+
+                pageFlip = new St.PageFlip(bookElement, {
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    size: 'fixed',
+                    drawShadow: true,
+                    flippingTime: 1500,
+                    usePortrait: true,
+                    startZIndex: 0,
+                    autoSize: true,
+                    maxShadowOpacity: 1,
+                    showCover: true,
+                    mobileScrollSupport: true
+                });
+
+                pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+                // Parse URL parameter for page number
+                const urlParams = new URLSearchParams(window.location.search);
+                const pageParam = urlParams.get('page');
+
+                if (pageParam) {
+                    const pageNumber = parseInt(pageParam, 10);
+                    if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= pageFlip.getPageCount()) {
+                        setTimeout(() => {
+                            pageFlip.turnToPage(pageNumber - 1);
+                        }, 100);
+                    }
+                }
+
+                // Update URL when page changes
+                pageFlip.on('flip', (e) => {
+                    const newPage = e.data + 1;
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.set('page', newPage);
+                    window.history.pushState({}, '', newUrl);
+                });
+
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowRight') {
+                        pageFlip.flipNext();
+                    } else if (e.key === 'ArrowLeft') {
+                        pageFlip.flipPrev();
+                    }
+                });
+            }
+
+            window.addEventListener('resize', function() {
+                const newDimensions = updateDimensions();
+                pageFlip.updateFromDimensions(newDimensions.width, newDimensions.height);
+            });
+
+            // Scroll-based page flipping
+            let lastScrollTop = 0;
+            let scrollThreshold = 50;
+            let scrollTimeout;
+
+            window.addEventListener("scroll", function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    let st = window.pageYOffset || document.documentElement.scrollTop;
+                    if (Math.abs(st - lastScrollTop) > scrollThreshold) {
+                        if (st > lastScrollTop) {
+                            pageFlip.flipNext();
+                        } else {
+                            pageFlip.flipPrev();
+                        }
+                        lastScrollTop = st <= 0 ? 0 : st;
+                    }
+                }, 100);
+            }, false);
+        });
+    </script>
+</body>
+</html>

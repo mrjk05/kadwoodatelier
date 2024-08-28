@@ -1,0 +1,23 @@
+{
+    "pages": [
+      {
+        "type": "cover",
+        "image": "imgs/COVER-CH-1.webp",
+        "alt": "Kadwood Atelier Blog - Explore the world of luxury women's tailoring"
+      },
+      {
+        "type": "image",
+        "image": "imgs/post1.webp",
+        "alt": "Hands sculpting destiny, adjusting lapels with the precision of an artist, each touch a brushstroke of empowerment",
+        "credit": "John Galliano 2010, photographed by Jan Welters. This image was first published in ELLE France and appeared in 2017 in the book “The House of Dior - Seventy Years of Haute Couture” by Katie Somerville."
+      },
+      {
+        "type": "content",
+        "markdown": "post1.md"
+      },
+      {
+        "type": "content",
+        "markdown": "post3.md"
+      }
+    ]
+  }
