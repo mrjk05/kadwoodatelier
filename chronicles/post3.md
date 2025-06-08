@@ -7,8 +7,6 @@ image: ../imgs/PAGE3.webp
 imageAlt: A tailor carefully measuring a client for a bespoke suit
 ---
 
-# The Art of Bespoke Tailoring
-
 In the world of fashion, few experiences rival the luxury and personal touch of a bespoke suit. At Kadwood Atelier, we believe that true elegance lies in the perfect fit – a garment that's not just worn, but embodied.
 
 ## What Makes Bespoke Special?
@@ -33,8 +31,6 @@ At Kadwood Atelier, we've refined our bespoke process to ensure each client rece
 5. **Refinement**: We make adjustments based on the first fitting.
 6. **Final Fitting**: Ensure every detail is perfect.
 7. **Delivery**: Receive your one-of-a-kind Kadwood creation.
-
-![Kadwood Atelier Fitting Room](../imgs/PAGE6.webp)
 
 ## Why Choose Bespoke?
 
