@@ -330,30 +330,49 @@
         </div>
     </main>
     <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js" defer></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     const bookElement = document.getElementById('book');
     let pageFlip;
 
+    // 1. Gather all the image URLs in order
+    const pageImgs = Array.from(document.querySelectorAll('.page img'))
+                          .map(img => img.dataset.src || img.src);
+
+    // 2. Parse `?page=` from the URL for deep linking
+    const params     = new URLSearchParams(window.location.search);
+    const pageParam  = parseInt(params.get('page'), 10);
+    const targetPage = (!isNaN(pageParam) && pageParam >= 0 && pageParam < pageImgs.length)
+                       ? pageParam
+                       : null;
+
+    // 3. Track which pages have been preloaded
+    const preloaded = new Set();
+    function preloadPage(idx) {
+        if (idx < 0 || idx >= pageImgs.length) return;
+        if (preloaded.has(idx)) return;
+        preloaded.add(idx);
+        new Image().src = pageImgs[idx];
+    }
+
+    // 4. Initial preloading: always preload the two pages after the start page
+    const startPage = targetPage !== null ? targetPage : 0;
+    preloadPage(startPage + 1);
+    preloadPage(startPage + 2);
+
+    // 5. updateDimensions logic
     function updateDimensions() {
-        const width = window.innerWidth;
+        const width  = window.innerWidth;
         const height = window.innerHeight;
-        let pageFlipWidth, pageFlipHeight;
+        let pageFlipWidth  = Math.floor(height / 1.414);
+        let pageFlipHeight = height;
 
-        // Set the height to the full viewport height
-        pageFlipHeight = height;
-
-        // Calculate width based on a 1:1.414 aspect ratio (common for documents)
-        pageFlipWidth = Math.floor(pageFlipHeight / 1.414);
-
-        // Ensure the width doesn't exceed the viewport width
         if (pageFlipWidth > width) {
-            pageFlipWidth = width;
-            pageFlipHeight = Math.floor(pageFlipWidth * 1.414);
+            pageFlipWidth  = width;
+            pageFlipHeight = Math.floor(width * 1.414);
         }
 
-        // Apply dimensions directly to the book element
-        bookElement.style.width = `${pageFlipWidth}px`;
+        bookElement.style.width  = `${pageFlipWidth}px`;
         bookElement.style.height = `${pageFlipHeight}px`;
 
         return { width: pageFlipWidth, height: pageFlipHeight };
@@ -361,66 +380,73 @@
 
     const dimensions = updateDimensions();
 
+    // 6. Initialize PageFlip
     pageFlip = new St.PageFlip(bookElement, {
-        width: dimensions.width,
-        height: dimensions.height,
-        size: 'fixed',
-        drawShadow: true,
-        flippingTime: 1500,
-        usePortrait: true,
-        startZIndex: 0,
-        autoSize: true,
-        maxShadowOpacity: 1,
-        showCover: true,
-        mobileScrollSupport: true
+        width:              dimensions.width,
+        height:             dimensions.height,
+        size:               'fixed',
+        drawShadow:         true,
+        flippingTime:       1500,
+        usePortrait:        true,
+        startZIndex:        0,
+        autoSize:           true,
+        maxShadowOpacity:   1,
+        showCover:          true,
+        mobileScrollSupport:true
     });
 
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
-    window.addEventListener('resize', function() {
-        const newDimensions = updateDimensions();
-        pageFlip.updateFromDimensions(newDimensions.width, newDimensions.height);
+    // 7. Once loaded, jump to the deep-linked page if provided
+    if (targetPage !== null) {
+        pageFlip.flip(targetPage, 0);
+    }
+
+    // 8. On every flip, preload the next two pages and update the URL
+    pageFlip.on('flip', e => {
+        const idx = e.data;
+        // preload ahead
+        preloadPage(idx + 1);
+        preloadPage(idx + 2);
+
+        // update the address bar without reload
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.set('page', idx);
+        window.history.replaceState(null, '', newUrl);
     });
 
-    // Add keyboard event listener
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight') {
-            pageFlip.flipNext();
-        } else if (e.key === 'ArrowLeft') {
-            pageFlip.flipPrev();
-        }
+    // 9. Handle window resize
+    window.addEventListener('resize', () => {
+        const dims = updateDimensions();
+        pageFlip.updateFromDimensions(dims.width, dims.height);
     });
 
-    // Add click event for the arrow containers
-    const arrowContainers = document.querySelectorAll('.arrow-container');
-    arrowContainers.forEach(container => {
-        container.addEventListener('click', function() {
-            pageFlip.flipNext();
-        });
+    // 10. Keyboard navigation
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') pageFlip.flipNext();
+        if (e.key === 'ArrowLeft')  pageFlip.flipPrev();
     });
 
-    // Add scroll event listener for page flipping
+    // 11. Click to flip
+    document.querySelectorAll('.arrow-container')
+            .forEach(el => el.addEventListener('click', () => pageFlip.flipNext()));
+
+    // 12. Scroll to flip
     let lastScrollTop = 0;
-    let scrollThreshold = 50; // Adjust this value to change scroll sensitivity
+    const scrollThreshold = 50;
     let scrollTimeout;
-
-    window.addEventListener("scroll", function() {
+    window.addEventListener('scroll', () => {
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function() {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
+        scrollTimeout = setTimeout(() => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
             if (Math.abs(st - lastScrollTop) > scrollThreshold) {
-                if (st > lastScrollTop) {
-                    // Scrolling down
-                    pageFlip.flipNext();
-                } else {
-                    // Scrolling up
-                    pageFlip.flipPrev();
-                }
+                if (st > lastScrollTop) pageFlip.flipNext();
+                else pageFlip.flipPrev();
                 lastScrollTop = st <= 0 ? 0 : st;
             }
-        }, 100); // Adjust this delay to debounce scroll events
+        }, 100);
     }, false);
 });
-    </script>
+</script>
 </body>
 </html>
